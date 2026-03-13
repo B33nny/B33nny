@@ -146,6 +146,17 @@ export function Home() {
             <p className="text-xs text-[#8892b0] mt-1">{unlockedPatterns.length} entries unlocked</p>
           </Card>
         </Link>
+        <Link to="/review" className="col-span-2">
+          <Card glow="cyan">
+            <div className="flex items-center gap-3">
+              <p className="text-2xl">🔁</p>
+              <div>
+                <p className="font-semibold text-white text-sm">Spaced Review</p>
+                <p className="text-xs text-[#8892b0]">SM-2 recall training</p>
+              </div>
+            </div>
+          </Card>
+        </Link>
       </div>
 
       {/* Level progress */}

@@ -7,6 +7,7 @@ import { PatternDetail } from './pages/PatternDetail'
 import { Library } from './pages/Library'
 import { TechniqueDetail } from './pages/TechniqueDetail'
 import { DailyPractice } from './pages/DailyPractice'
+import { SpacedReview } from './pages/SpacedReview'
 import { Onboarding } from './pages/Onboarding'
 import { LevelRouter } from './pages/LevelRouter'
 
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: 'library', element: <Library /> },
       { path: 'library/:slug', element: <TechniqueDetail /> },
       { path: 'daily', element: <DailyPractice /> },
+      { path: 'review', element: <SpacedReview /> },
       { path: 'level/:id', element: <LevelRouter /> },
     ],
   },

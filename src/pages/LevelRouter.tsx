@@ -7,6 +7,11 @@ import { L02_RedFlagBingo } from './levels/L02_RedFlagBingo'
 import { L03_FourHorsemen } from './levels/L03_FourHorsemen'
 import { L04_ValidateThis } from './levels/L04_ValidateThis'
 import { L05_PhraseLab } from './levels/L05_PhraseLab'
+import { L06_GaslightDetective } from './levels/L06_GaslightDetective'
+import { L07_DARVODecoder } from './levels/L07_DARVODecoder'
+import { L08_MazeOfCircles } from './levels/L08_MazeOfCircles'
+import { L09_TacticalEmpathy } from './levels/L09_TacticalEmpathy'
+import { L10_SpotTheTrap } from './levels/L10_SpotTheTrap'
 import { LevelComingSoon } from './levels/LevelComingSoon'
 
 const levelComponents: Record<number, React.ComponentType> = {
@@ -15,6 +20,11 @@ const levelComponents: Record<number, React.ComponentType> = {
   3: L03_FourHorsemen,
   4: L04_ValidateThis,
   5: L05_PhraseLab,
+  6: L06_GaslightDetective,
+  7: L07_DARVODecoder,
+  8: L08_MazeOfCircles,
+  9: L09_TacticalEmpathy,
+  10: L10_SpotTheTrap,
 }
 
 export function LevelRouter() {
