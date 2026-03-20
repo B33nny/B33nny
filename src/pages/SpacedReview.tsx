@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useRepetitionStore } from '../store/repetitionStore'
-import { useCodexStore } from '../store/codexStore'
 import { useStreakStore } from '../store/streakStore'
 import { getPatternBySlug } from '../data/patterns'
 import { Button } from '../components/ui/Button'
@@ -17,18 +16,17 @@ type AnswerState = 'unanswered' | 'correct' | 'wrong'
 export function SpacedReview() {
   const navigate = useNavigate()
   const { items, getDueItems, reviewItem } = useRepetitionStore()
-  const { isUnlocked } = useCodexStore()
   const { addDailyXP } = useStreakStore()
   const { toast, show: showToast, hide: hideToast } = useXPToast()
 
   const [phase, setPhase] = useState<ReviewPhase>('hub')
   const [cardIdx, setCardIdx] = useState(0)
-  const [answerState, setAnswerState] = useState<AnswerState>('unanswered')
+  const [, setAnswerState] = useState<AnswerState>('unanswered')
   const [revealed, setRevealed] = useState(false)
   const [sessionScore, setSessionScore] = useState(0)
   const [totalReviewed, setTotalReviewed] = useState(0)
 
-  const dueItems = useMemo(() => getDueItems(), [items])
+  const dueItems = useMemo(() => getDueItems(), [getDueItems])
   const allItems = Object.values(items)
 
   const currentItem = dueItems[cardIdx]

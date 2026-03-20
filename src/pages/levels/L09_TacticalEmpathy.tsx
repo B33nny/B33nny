@@ -43,7 +43,7 @@ export function L09_TacticalEmpathy() {
   const { resetSession } = useSessionStore()
   const { toast, show: showToast, hide: hideToast } = useXPToast()
 
-  const [scenarioIdx, setScenarioIdx] = useState(0)
+  const [scenarioIdx] = useState(0)
   const [inputVal, setInputVal] = useState('')
   const [selectedTechnique, setSelectedTechnique] = useState<string | null>(null)
   const [phase, setPhase] = useState<'intro' | 'conversation' | 'replay' | 'done'>('intro')
@@ -78,7 +78,6 @@ export function L09_TacticalEmpathy() {
   }
 
   const finish = () => {
-    const mostUsed = Object.entries(techniqueUses).sort((a, b) => b[1] - a[1])[0]
     const score = Math.min(100, displayMessages.filter(m => m.role === 'user').length * 15)
     completeLevel({ levelId: 9, completedAt: new Date().toISOString(), score, maxScore: 100, timeSeconds: 0, patternsEncountered: [] })
     addDailyXP(level.xpReward)

@@ -89,7 +89,7 @@ export function useLLMConversation(options: UseLLMConversationOptions) {
         content: assistantContent,
         timestamp: new Date().toISOString(),
       })
-    } catch (err) {
+    } catch {
       setConnected(false)
       setError('Could not reach the LLM. Make sure Ollama is running at the configured endpoint.')
       // Remove the empty assistant message on error

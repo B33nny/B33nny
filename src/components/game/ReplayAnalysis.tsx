@@ -31,7 +31,7 @@ function qualityColor(q: string) {
   return '#ffd700'
 }
 
-export function ReplayAnalysis({ messages, levelTitle, onDone }: ReplayAnalysisProps) {
+export function ReplayAnalysis({ messages, levelTitle: _levelTitle, onDone }: ReplayAnalysisProps) {
   const [loading, setLoading] = useState(false)
   const [analysis, setAnalysis] = useState<Analysis | null>(null)
   const [error, setError] = useState<string | null>(null)

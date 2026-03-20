@@ -28,7 +28,7 @@ const fallbackDialogue = [
 ]
 
 // DARVO pattern detector (simple heuristic for scoring)
-function scoreDARVONavigation(messages: Array<{ role: string; content: string }>, originalIssue: string): number {
+function scoreDARVONavigation(messages: Array<{ role: string; content: string }>, _originalIssue: string): number {
   const userMessages = messages.filter(m => m.role === 'user')
   if (userMessages.length === 0) return 0
   const lastUserMsg = userMessages[userMessages.length - 1].content.toLowerCase()

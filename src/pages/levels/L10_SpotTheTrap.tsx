@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { getLevelById } from '../../data/levels'
 import { useProgressStore } from '../../store/progressStore'
 import { useStreakStore } from '../../store/streakStore'
@@ -75,7 +75,6 @@ export function L10_SpotTheTrap() {
   const [baitIdx, setBaitIdx] = useState(0)           // which bait message is showing
   const [impulse, setImpulse] = useState(0)
   const [phase, setPhase] = useState<'intro' | 'round' | 'result' | 'done'>('intro')
-  const [bit, setBit] = useState(false)               // player took the bait
   const [held, setHeld] = useState(false)             // player held successfully
   const [score, setScore] = useState(0)
   const tickRef = useRef<number | null>(null)
@@ -108,7 +107,6 @@ export function L10_SpotTheTrap() {
   const startRound = () => {
     setBaitIdx(0)
     setImpulse(0)
-    setBit(false)
     setHeld(false)
     setPhase('round')
     startTicking()
@@ -116,7 +114,6 @@ export function L10_SpotTheTrap() {
 
   const takeBait = () => {
     if (tickRef.current) clearInterval(tickRef.current)
-    setBit(true)
     setPhase('result')
     recordPerformance({ patternSlug: 'baiting', correct: false, timestamp: new Date().toISOString(), levelId: 10 })
   }

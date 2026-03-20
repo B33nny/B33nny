@@ -34,6 +34,7 @@ export function XPToast({ amount, show, onDone }: XPToastProps) {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useXPToast() {
   const [toast, setToast] = useState<{ amount: number; show: boolean }>({ amount: 0, show: false })
 

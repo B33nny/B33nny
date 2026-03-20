@@ -15,7 +15,7 @@ const DAILY_XP = 50
 function buildScenario(pattern: typeof patterns[0]) {
   return {
     pattern,
-    message: `"${pattern.feelsLike.replace(/\.$/, '')}. You can\'t do anything right."`,
+    message: `"${pattern.feelsLike.replace(/\.$/, '')}. You can't do anything right."`,
     question: 'Which toxic pattern does this most clearly demonstrate?',
     options: [pattern, ...patterns.filter(p => p.id !== pattern.id).sort(() => Math.random() - 0.5).slice(0, 3)].sort(() => Math.random() - 0.5),
     correctId: pattern.id,
