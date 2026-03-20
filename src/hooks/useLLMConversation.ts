@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react'
-import { streamChat } from '../services/llm'
+import { useState, useCallback, useRef, useEffect } from 'react'
+import { streamChat, checkLLMConnection } from '../services/llm'
 import type { ChatMessage } from '../services/llm'
 import { useSessionStore } from '../store/sessionStore'
 
@@ -22,7 +22,12 @@ export function useLLMConversation(options: UseLLMConversationOptions) {
   const { systemPrompt, regulationDeltaOnBait = 12, regulationDeltaOnGood = -5 } = options
   const [messages, setMessages] = useState<ConversationMessage[]>([])
   const [streaming, setStreaming] = useState(false)
-  const [connected, setConnected] = useState<boolean | null>(null)   // null = unknown
+  const [connected, setConnected] = useState<boolean | null>(null)   // null = checking
+
+  // Probe Ollama once on mount so levels know immediately if offline
+  useEffect(() => {
+    checkLLMConnection().then(ok => setConnected(ok))
+  }, [])
   const [error, setError] = useState<string | null>(null)
   const abortRef = useRef<boolean>(false)
   const { adjustRegulation, isFlooded } = useSessionStore()

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { useRepetitionStore } from './repetitionStore'
 
 interface CodexState {
   unlockedPatterns: string[]
@@ -21,6 +22,8 @@ export const useCodexStore = create<CodexState>()(
         const { unlockedPatterns } = get()
         if (unlockedPatterns.includes(slug)) return false
         set(state => ({ unlockedPatterns: [...state.unlockedPatterns, slug] }))
+        // Auto-seed into spaced repetition queue on first unlock
+        useRepetitionStore.getState().initItem(slug, 'pattern')
         return true
       },
 

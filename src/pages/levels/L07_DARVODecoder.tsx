@@ -50,7 +50,6 @@ export function L07_DARVODecoder() {
 
   const [inputVal, setInputVal] = useState('')
   const [phase, setPhase] = useState<'intro' | 'conversation' | 'replay' | 'done'>('intro')
-  const [useFallback, setUseFallback] = useState(false)
   const [fallbackIdx, setFallbackIdx] = useState(0)
   const [fallbackMessages, setFallbackMessages] = useState<Array<{ id: string; role: 'user' | 'assistant'; content: string; timestamp: string }>>([])
 
@@ -59,6 +58,9 @@ export function L07_DARVODecoder() {
     regulationDeltaOnBait: 15,
     regulationDeltaOnGood: -5,
   })
+
+  // Derive fallback mode from connection status — no Ollama → scripted dialogue
+  const useFallback = connected === false
 
   const handleSend = (text: string) => {
     if (useFallback) {
@@ -144,17 +146,14 @@ export function L07_DARVODecoder() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Button onClick={() => setPhase('conversation')} fullWidth>Start conversation</Button>
-          {!useFallback && (
-            <button
-              onClick={() => { setUseFallback(true); setPhase('conversation') }}
-              className="text-xs text-[#8892b0] underline text-center"
-            >
-              Ollama not running? Use scripted fallback →
-            </button>
-          )}
-        </div>
+        {connected === false && (
+          <p className="text-xs text-[#ffd700] text-center">
+            Ollama offline — using scripted fallback mode.
+          </p>
+        )}
+        <Button onClick={() => setPhase('conversation')} fullWidth>
+          {connected === null ? 'Checking connection…' : 'Start conversation'}
+        </Button>
       </div>
     )
   }

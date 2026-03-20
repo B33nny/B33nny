@@ -47,7 +47,6 @@ export function L09_TacticalEmpathy() {
   const [inputVal, setInputVal] = useState('')
   const [selectedTechnique, setSelectedTechnique] = useState<string | null>(null)
   const [phase, setPhase] = useState<'intro' | 'conversation' | 'replay' | 'done'>('intro')
-  const [useFallback, setUseFallback] = useState(false)
   const [fallbackMessages, setFallbackMessages] = useState<Array<{ id: string; role: 'user' | 'assistant'; content: string; timestamp: string }>>([])
   const [techniqueUses, setTechniqueUses] = useState<Record<string, number>>({})
 
@@ -56,6 +55,9 @@ export function L09_TacticalEmpathy() {
     regulationDeltaOnBait: 8,
     regulationDeltaOnGood: -8,
   })
+
+  // Derive fallback mode from connection status — no Ollama → scripted dialogue
+  const useFallback = connected === false
 
   const displayMessages = useFallback ? fallbackMessages : messages
 
@@ -141,15 +143,14 @@ export function L09_TacticalEmpathy() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <Button onClick={() => setPhase('conversation')} fullWidth>Start practice</Button>
-          <button
-            onClick={() => { setUseFallback(true); setPhase('conversation') }}
-            className="text-xs text-[#8892b0] underline text-center"
-          >
-            Ollama not running? Use scripted fallback →
-          </button>
-        </div>
+        {connected === false && (
+          <p className="text-xs text-[#ffd700] text-center">
+            Ollama offline — using scripted fallback mode.
+          </p>
+        )}
+        <Button onClick={() => setPhase('conversation')} fullWidth>
+          {connected === null ? 'Checking connection…' : 'Start practice'}
+        </Button>
       </div>
     )
   }
