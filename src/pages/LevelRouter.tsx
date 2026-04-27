@@ -12,6 +12,11 @@ import { L07_DARVODecoder } from './levels/L07_DARVODecoder'
 import { L08_MazeOfCircles } from './levels/L08_MazeOfCircles'
 import { L09_TacticalEmpathy } from './levels/L09_TacticalEmpathy'
 import { L10_SpotTheTrap } from './levels/L10_SpotTheTrap'
+import { L11_BoundaryBootcamp } from './levels/L11_BoundaryBootcamp'
+import { L12_ReinforcementTrap } from './levels/L12_ReinforcementTrap'
+import { L13_NVCWorkshop } from './levels/L13_NVCWorkshop'
+import { L14_CounterMoveClinic } from './levels/L14_CounterMoveClinic'
+import { L15_CoerciveControlMap } from './levels/L15_CoerciveControlMap'
 import { LevelComingSoon } from './levels/LevelComingSoon'
 
 const levelComponents: Record<number, React.ComponentType> = {
@@ -25,6 +30,11 @@ const levelComponents: Record<number, React.ComponentType> = {
   8: L08_MazeOfCircles,
   9: L09_TacticalEmpathy,
   10: L10_SpotTheTrap,
+  11: L11_BoundaryBootcamp,
+  12: L12_ReinforcementTrap,
+  13: L13_NVCWorkshop,
+  14: L14_CounterMoveClinic,
+  15: L15_CoerciveControlMap,
 }
 
 export function LevelRouter() {

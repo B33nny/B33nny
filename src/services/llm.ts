@@ -1,5 +1,6 @@
 import type { GameLevel } from '../types'
 import type { Persona } from '../types'
+import { streamChatSocket, checkSocketConnection, isSocketConnected } from './socketService'
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -22,12 +23,21 @@ export function setLLMModel(model: string) {
 // ─── Health check ─────────────────────────────────────────────────────────────
 
 export async function checkLLMConnection(): Promise<boolean> {
+  // Try socket connection first
+  const socketOk = await checkSocketConnection()
+  if (socketOk) return true
+
+  // Fallback to HTTP
   try {
     const res = await fetch(`${getLLMEndpoint()}/models`, { signal: AbortSignal.timeout(3000) })
     return res.ok
   } catch {
     return false
   }
+}
+
+export function isUsingSocket(): boolean {
+  return isSocketConnected()
 }
 
 // ─── Prompt builders ──────────────────────────────────────────────────────────
@@ -123,6 +133,19 @@ export async function* streamChat(
   messages: ChatMessage[],
   onToken?: (token: string) => void,
 ): AsyncGenerator<string> {
+  // Try socket first if connected
+  if (isSocketConnected()) {
+    try {
+      for await (const token of streamChatSocket({ messages, onToken })) {
+        yield token
+      }
+      return
+    } catch {
+      // Fall through to HTTP
+    }
+  }
+
+  // Fallback to HTTP-based LLM
   const endpoint = getLLMEndpoint()
   const model = getLLMModel()
 

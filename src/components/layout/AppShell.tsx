@@ -50,6 +50,7 @@ export function AppShell() {
             <div className="flex items-center gap-1 bg-[#ffd700]/10 border border-[#ffd700]/20 rounded-full px-2.5 py-1">
               <span className="text-xs font-mono text-[#ffd700] font-bold">{totalXP.toLocaleString()} XP</span>
             </div>
+            <NavLink to="/settings" className="text-[#8892b0] hover:text-white transition-colors text-lg">⚙️</NavLink>
           </div>
         </div>
       </header>

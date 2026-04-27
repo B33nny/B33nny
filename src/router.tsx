@@ -10,6 +10,7 @@ import { DailyPractice } from './pages/DailyPractice'
 import { SpacedReview } from './pages/SpacedReview'
 import { Onboarding } from './pages/Onboarding'
 import { LevelRouter } from './pages/LevelRouter'
+import { Settings } from './pages/Settings'
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       { path: 'library/:slug', element: <TechniqueDetail /> },
       { path: 'daily', element: <DailyPractice /> },
       { path: 'review', element: <SpacedReview /> },
+      { path: 'settings', element: <Settings /> },
       { path: 'level/:id', element: <LevelRouter /> },
     ],
   },
